@@ -3,56 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regisztráció</title>
-    <!-- Bootstrap CSS betöltése -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            margin-top: 50px;
-        }
-        body {
-            background-color: lightgray;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .card{
-            border-radius: 10px;
-        }
-    </style>
+    <title>Közösségi Portál</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Regisztráció
+    <header>
+        <h1>Közösségi Portál</h1>
+        <nav>
+            <ul>
+                <li><a href="#esemenyek">Események</a></li>
+                <li><a href="#megosztas">Esemény Megosztása</a></li>
+                <li><a href="#uzenetek">Privát Üzenetek</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="esemenyek">
+            <h2>Közelgő Események</h2>
+            <div class="esemeny">
+                <h3>Esemény Neve</h3>
+                <p>Dátum: 2024-05-20</p>
+                <p>Leírás: Ez egy példa esemény.</p>
+                <button type="button">Érdekel</button>
+                <button type="button">Elmész</button>
+                <div class="hozzaszolasok">
+                    <h4>Hozzászólások</h4>
+                    <div class="hozzaszolas">
+                        <p><strong>Felhasználó1:</strong> Nagyon várom!</p>
                     </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="username">Felhasználónév</label>
-                                <input type="text" class="form-control" id="username" placeholder="Felhasználónév">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Jelszó</label>
-                                <input type="password" class="form-control" id="password" placeholder="Jelszó">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Regisztráció</button>
-                        </form>
+                    <div class="hozzaszolas">
+                        <p><strong>Felhasználó2:</strong> Én is ott leszek!</p>
                     </div>
-                    <div class="card-footer text-muted">
-                        Már van fiókod? <a href="login.html">Tovább a bejelentkezéshez</a>
-                    </div>
+                    <textarea placeholder="Hozzászólás írása..."></textarea>
+                    <button type="button">Hozzászólás</button>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Bootstrap JavaScript és jQuery betöltése -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <section id="megosztas">
+            <h2>Esemény Megosztása</h2>
+            <form>
+                <label for="esemeny-nev">Esemény Neve:</label>
+                <input type="text" id="esemeny-nev" name="esemeny-nev">
+                <label for="datum">Dátum:</label>
+                <input type="date" id="datum" name="datum">
+                <label for="leiras">Leírás:</label>
+                <textarea id="leiras" name="leiras"></textarea>
+                <button type="submit">Megosztás</button>
+            </form>
+        </section>
+
+        <section id="uzenetek">
+            <h2>Privát Üzenetek</h2>
+            <div class="uzenet">
+                <p><strong>Felhasználó1:</strong> Szia, eljössz az eseményre?</p>
+                <textarea placeholder="Válasz írása..."></textarea>
+                <button type="button">Küldés</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Közösségi Portál</p>
+    </footer>
 </body>
 </html>
