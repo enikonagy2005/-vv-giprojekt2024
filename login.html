@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bejelentkezés / Regisztráció</title>
+    <link rel="stylesheet" href="auth_styles.css">
+    <script>
+        function handleRegistration(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+        
+            localStorage.setItem('username', username);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+
+            document.getElementById('register-form').reset();
+            document.getElementById('login-tab').checked = true;
+
+            alert('Regisztráció sikeres! Most jelentkezzen be.');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const storedEmail = localStorage.getItem('email');
+            const storedPassword = localStorage.getItem('password');
+
+            if (email === storedEmail && password === storedPassword) {
+            
+                window.location.href = 'index.html';
+            } else {
+                alert('Hibás email vagy jelszó!');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
+            document.getElementById('register-form').addEventListener('submit', handleRegistration);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Közösségi Platform</h1>
+    </header>
+
+    <main>
+        <section class="auth-section">
+            <div class="auth-container">
+                <input type="radio" name="tab" id="login-tab" checked>
+                <input type="radio" name="tab" id="register-tab">
+                
+                <div class="tabs">
+                    <label for="login-tab" class="tab">Bejelentkezés</label>
+                    <label for="register-tab" class="tab">Regisztráció</label>
+                </div>
+
+                <div class="auth-forms">
+                    <form id="login-form" class="auth-form">
+                        <h2>Bejelentkezés</h2>
+                        <label for="login-email">Email:</label>
+                        <input type="email" id="login-email" name="login-email" required>
+                        <label for="login-password">Jelszó:</label>
+                        <input type="password" id="login-password" name="login-password" required>
+                        <button type="submit">Bejelentkezés</button>
+                    </form>
+
+                    <form id="register-form" class="auth-form">
+                        <h2>Regisztráció</h2>
+                        <label for="register-username">Felhasználónév:</label>
+                        <input type="text" id="register-username" name="register-username" required>
+                        <label for="register-email">Email:</label>
+                        <input type="email" id="register-email" name="register-email" required>
+                        <label for="register-password">Jelszó:</label>
+                        <input type="password" id="register-password" name="register-password" required>
+                        <button type="submit">Regisztráció</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
