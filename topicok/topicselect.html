@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Közösségi Platform</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-4 {
+            flex: 0 0 33.3333%;
+            max-width: 33.3333%;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+        .esemeny {
+            background-color: lightgray;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Adding shadow effect */
+        }
+        .add-event-button {
+            display: flex;
+            justify-content: flex-start; /* Aligns the button to the left */
+            margin-bottom: 20px;
+        }
+        .add-event-button button {
+            font-size: 24px;
+            padding: 10px 20px;
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-event-button button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+		a{
+		color: black;
+		text-decoration: none;
+		}
+    </style>
+    <script>
+        function createForm() {
+            const formSection = document.getElementById('form-section');
+            formSection.classList.remove('hidden');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const topicName = document.getElementById('topic-name').value;
+            const topicAuthor = document.getElementById('topic-author').value;
+            const topicDescription = document.getElementById('topic-description').value;
+
+            // Simulating adding a new event and refreshing the page
+            // In a real application, you would send this data to the server and refresh the list of events
+
+            console.log('New Topic:', {
+                name: topicName,
+                author: topicAuthor,
+                description: topicDescription
+            });
+
+            // Reset the form and hide it
+            document.getElementById('new-topic-form').reset();
+            document.getElementById('form-section').classList.add('hidden');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Közösségi Platform</h1>
+    </header>
+
+    <main>
+        <section id="esemenyek">
+            <h2>Jelenlegi Topicok</h2>
+            <div class="add-event-button">
+                <button onclick="createForm()">+</button>
+            </div>
+            <div class="row">
+                <div class="col-4">
+				<a href="topics/topic.html">
+                    <div class="esemeny">
+                        <h3>Esemény Neve</h3>
+                        <p>Létrehozás Dátuma: 2024-05-20</p>
+                        <p>Leírás: Ez egy példa esemény.</p>
+                        <div class="hozzaszolasok">
+                            <h4>Hozzászólások</h4>
+                            <div class="hozzaszolas">
+                                A hozzászólás megtekintéséhez kattints rá a topicra!
+                            </div>
+                        </div>
+                    </div>
+					</a>
+                </div>
+                <div class="col-4">
+				<a href="topic.html">
+                    <div class="esemeny">
+                        <h3>Esemény Neve</h3>
+                        <p>Létrehozás Dátuma: 2024-05-20</p>
+                        <p>Leírás: Ez egy példa esemény.</p>
+                        <div class="hozzaszolasok">
+                            <h4>Hozzászólások</h4>
+                            <div class="hozzaszolas">
+                                A hozzászólás megtekintéséhez kattints rá a topicra!
+                            </div>
+                        </div>
+                    </div>
+					</a>
+                </div>
+                <div class="col-4">
+				<a href="topic.html">
+                    <div class="esemeny">
+                        <h3>Esemény Neve</h3>
+                        <p>Létrehozás Dátuma: 2024-05-20</p>
+                        <p>Leírás: Ez egy példa esemény.</p>
+                        <div class="hozzaszolasok">
+                            <h4>Hozzászólások</h4>
+                            <div class="hozzaszolas">
+                                A hozzászólás megtekintéséhez kattints rá a topicra!
+                            </div>
+                        </div>
+                    </div>
+					</a>
+                </div>
+                <!-- Add more col-4 divs for additional events as needed -->
+            </div>
+        </section>
+
+        <section id="form-section" class="hidden">
+            <h2>Új Topic Létrehozása</h2>
+            <form id="new-topic-form" onsubmit="handleFormSubmit(event)">
+                <label for="topic-name">Topic Neve:</label>
+                <input type="text" id="topic-name" name="topic-name" required>
+                <label for="topic-author">Szerző:</label>
+                <input type="text" id="topic-author" name="topic-author" required>
+                <label for="topic-description">Leírás:</label>
+                <textarea id="topic-description" name="topic-description" required></textarea>
+                <button type="submit">Létrehozás</button>
+            </form>
+        </section>
+
+        <!-- <section id="uzenetek"> -->
+            <!-- <h2>Privát Üzenetek</h2> -->
+            <!-- <div class="uzenet"> -->
+                <!-- <p><strong>Felhasználó1:</strong> Szia, eljössz az eseményre?</p> -->
+                <!-- <textarea placeholder="Válasz írása..."></textarea> -->
+                <!-- <button type="button">Küldés</button> -->
+            <!-- </div> -->
+        <!-- </section> -->
+    </main>
+
+    <!-- <footer> -->
+        <!-- <p>&copy; 2024 Közösségi Portál</p> -->
+    <!-- </footer> -->
+</body>
+</html>
