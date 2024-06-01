@@ -34,7 +34,7 @@
             const storedPassword = localStorage.getItem('password');
 
             if (email === storedEmail && password === storedPassword) {
-            
+                alert('Sikeres bejelentkezés! Hamarosan átirányítunk...');
                 window.location.href = 'index.html';
             } else {
                 alert('Hibás email vagy jelszó!');
