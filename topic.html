@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topic 1</title>
     <link rel="stylesheet" href="topic_styles.css">
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .fixed-bottom-div {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f8f9fa; /* Light background */
+            padding: 10px; /* Padding for better spacing */
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional: adds a small shadow for better visibility */
+        }
+        .fixed-bottom-div form {
+            display: flex;
+            align-items: center;
+        }
+        .fixed-bottom-div textarea {
+            flex: 1;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -14,11 +35,7 @@
 
     <main>
         <section class="topic-details">
-            <h2>Esemény Neve 1</h2>
-            <p>Létrehozás Dátuma: 2024-05-20</p>
-            <p>Leírás: Ez egy példa esemény.</p>
             <div class="hozzaszolasok">
-                <h3>Hozzászólások</h3>
                 <div class="hozzaszolas">
                     <p><strong>Felhasználó1:</strong> Ez egy példa hozzászólás.</p>
                 </div>
@@ -26,5 +43,19 @@
             </div>
         </section>
     </main>
+
+    <div class="fixed-bottom-div">
+        <form>
+            <div class="form-group mb-0 d-flex w-100">
+                <textarea class="form-control" rows="1" placeholder="Írd meg a hozzászólásodat"></textarea>
+                <button type="submit" class="btn btn-primary">Elküldés</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
