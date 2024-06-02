@@ -9,6 +9,7 @@
         .row {
             display: flex;
             flex-wrap: wrap;
+            gap: 5px;
         }
         .col-4 {
             flex: 0 0 33.3333%;
@@ -50,7 +51,7 @@
 		}
     </style>
 </head>
-<body>
+<body onload="loadNotes()">
     <header>
         <h1>Közösségi Platform</h1>
     </header>
@@ -73,8 +74,8 @@
                 <label for="leiras">Leírás:</label>
                 <input type="text" id="leiras" name="topic-author" required>
                 <label for="korhatar">Kórhatár:</label>
-                <textarea id="topic-description" name="topic-description" required></textarea>
-                <button type="submit">Létrehozás</button>
+                <textarea id="korhatar" name="topic-description" required></textarea>
+                <button id="btn" type="submit">Létrehozás</button>
             </form>
         </section>
 
@@ -104,6 +105,7 @@
         };
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore(app);
+        const formSection = document.getElementById('form-section');
         var topicok = document.getElementById("esemenyek");
         function loadNotes() {
           //  document.getElementById('notes-list').innerHTML = '<h2>Jegyzetek</h2>';
@@ -113,6 +115,7 @@
                     var noteElement = document.createElement('div');
                     noteElement.classList.add('esemeny');
                     noteElement.classList.add('col-4');
+                    noteElement.style.maxWidth = "33%";
                     noteElement.innerHTML = `
                         <div class="card-body">
                             <h3 class="card-title">Topic Neve: ${note.nev}</h3>
@@ -124,35 +127,11 @@
             });
         }
         function createForm() {
-            const formSection = document.getElementById('form-section');
             formSection.classList.remove('hidden');
         }
-
-        function handleFormSubmit(event) {
-            event.preventDefault();
-
-            const topicName = document.getElementById('topic-name').value;
-            const topicAuthor = document.getElementById('topic-author').value;
-            const topicDescription = document.getElementById('topic-description').value;
-            alert('Sikeresen létrehoztál egy Topicot.');
-
-            console.log('New Topic:', {
-                name: topicName,
-                author: topicAuthor,
-                description: topicDescription
-            });
-            document.getElementById('new-topic-form').reset();
-            document.getElementById('form-section').classList.add('hidden');
-        }
-        window.onload = function () {
-            loadNotes();
-        };
-        document.getElementById('btn').addEventListener('submit', function(e) {
+        document.getElementById('btn').addEventListener('click', function(e) {
             e.preventDefault();
-            
-
-        
-            var nev = document.getElementById('nev').value;
+            var nev = document.getElementById('name').value;
             var leiras = document.getElementById('leiras').value;
             var korhatar = document.getElementById('korhatar').value;
         
@@ -163,10 +142,12 @@
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
-                document.getElementById('note-title').value = ''; 
-                document.getElementById('note-content').value = '';
-                document.getElementById('note-status').value = 'Fontos'; 
-                loadNotes(); 
+                document.getElementById('name').value = ''; 
+                document.getElementById('leiras').value = '';
+                document.getElementById('korhatar').value = '';
+                document.getElementById('row').innerHTML = '';
+                formSection.classList.add('hidden');
+                loadNotes();
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
