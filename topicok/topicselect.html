@@ -61,17 +61,13 @@
             const topicName = document.getElementById('topic-name').value;
             const topicAuthor = document.getElementById('topic-author').value;
             const topicDescription = document.getElementById('topic-description').value;
-
-            // Simulating adding a new event and refreshing the page
-            // In a real application, you would send this data to the server and refresh the list of events
+            alert('Sikeresen létrehoztál egy Topicot.');
 
             console.log('New Topic:', {
                 name: topicName,
                 author: topicAuthor,
                 description: topicDescription
             });
-
-            // Reset the form and hide it
             document.getElementById('new-topic-form').reset();
             document.getElementById('form-section').classList.add('hidden');
         }
