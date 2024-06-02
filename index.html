@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bejelentkezés / Regisztráció</title>
     <link rel="stylesheet" href="css/auth_styles.css">
-    <script>
+    <!--<script>
+        
         function handleRegistration(event) {
             event.preventDefault();
 
@@ -45,47 +46,76 @@
             document.getElementById('login-form').addEventListener('submit', handleLogin);
             document.getElementById('register-form').addEventListener('submit', handleRegistration);
         });
-    </script>
+    </script>!-->
 </head>
 <body>
     <header>
         <h1>Közösségi Platform</h1>
     </header>
 
-    <main>
-        <section class="auth-section">
-            <div class="auth-container">
-                <input type="radio" name="tab" id="login-tab" checked>
-                <input type="radio" name="tab" id="register-tab">
-                
-                <div class="tabs">
-                    <label for="login-tab" class="tab">Bejelentkezés</label>
-                    <label for="register-tab" class="tab">Regisztráció</label>
-                </div>
-
-                <div class="auth-forms">
-                    <form id="login-form" class="auth-form">
-                        <h2>Bejelentkezés</h2>
-                        <label for="login-email">Email:</label>
-                        <input type="email" id="login-email" name="login-email" required>
-                        <label for="login-password">Jelszó:</label>
-                        <input type="password" id="login-password" name="login-password" required>
-                        <button type="submit">Bejelentkezés</button>
-                    </form>
-
-                    <form id="register-form" class="auth-form">
-                        <h2>Regisztráció</h2>
-                        <label for="register-username">Felhasználónév:</label>
-                        <input type="text" id="register-username" name="register-username" required>
-                        <label for="register-email">Email:</label>
-                        <input type="email" id="register-email" name="register-email" required>
-                        <label for="register-password">Jelszó:</label>
-                        <input type="password" id="register-password" name="register-password" required>
-                        <button type="submit">Regisztráció</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
+    <div>
+        <h2>Regisztráció</h2>
+        <input type="email" id="register-email" placeholder="Email">
+        <input type="password" id="register-password" placeholder="Jelszó">
+        <button onclick="registerUser()">Regisztráció</button>
+      </div>
+    
+      <div>
+        <h2>Bejelentkezés</h2>
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Jelszó">
+        <button onclick="loginUser()">Bejelentkezés</button>
+      </div>
+    </body>
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore-compat.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    
+        const firebaseConfig = {
+          apiKey: "AIzaSyBS2rFW8Kna-YayFzh54wS6ZInQOozdlgg",
+          authDomain: "evvegiproject.firebaseapp.com",
+          projectId: "evvegiproject",
+          storageBucket: "evvegiproject.appspot.com",
+          messagingSenderId: "582492796065",
+          appId: "1:582492796065:web:e76f649410ef9df0c96ce0"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+    
+        window.registerUser = function() {
+          var email = document.getElementById("register-email").value;
+          var password = document.getElementById("register-password").value;
+    
+          createUserWithEmailAndPassword(auth, email, password)
+            .then(function(userCredential) {
+              var user = userCredential.user;
+              console.log("Regisztráció sikeres:", user);
+            })
+            .catch(function(error) {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error("Regisztrációs hiba:", errorCode, errorMessage);
+            });
+        }
+    
+        window.loginUser = function() {
+          var email = document.getElementById("login-email").value;
+          var password = document.getElementById("login-password").value;
+    
+          signInWithEmailAndPassword(auth, email, password)
+            .then(function(userCredential) {
+              var user = userCredential.user;
+              console.log("Sikeres bejelentkezés:", user);
+            })
+            .catch(function(error) {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error("Bejelentkezési hiba:", errorCode, errorMessage);
+            });
+        }
+      </script>
 </body>
 </html>
