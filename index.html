@@ -63,12 +63,12 @@
           createUserWithEmailAndPassword(auth, email, password)
             .then(function(userCredential) {
               var user = userCredential.user;
-              console.log("Regisztráció sikeres:", user);
+              alert("Regisztráció sikeres!");
             })
             .catch(function(error) {
               var errorCode = error.code;
               var errorMessage = error.message;
-              console.error("Regisztrációs hiba:", errorCode, errorMessage);
+              alert("Regisztrációs hiba:", errorCode, errorMessage);
             });
         }
     
