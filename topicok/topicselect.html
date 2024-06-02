@@ -49,29 +49,6 @@
 		text-decoration: none;
 		}
     </style>
-    <script>
-        function createForm() {
-            const formSection = document.getElementById('form-section');
-            formSection.classList.remove('hidden');
-        }
-
-        function handleFormSubmit(event) {
-            event.preventDefault();
-
-            const topicName = document.getElementById('topic-name').value;
-            const topicAuthor = document.getElementById('topic-author').value;
-            const topicDescription = document.getElementById('topic-description').value;
-            alert('Sikeresen létrehoztál egy Topicot.');
-
-            console.log('New Topic:', {
-                name: topicName,
-                author: topicAuthor,
-                description: topicDescription
-            });
-            document.getElementById('new-topic-form').reset();
-            document.getElementById('form-section').classList.add('hidden');
-        }
-    </script>
 </head>
 <body>
     <header>
@@ -84,53 +61,7 @@
             <div class="add-event-button">
                 <button onclick="createForm()">+</button>
             </div>
-            <div class="row">
-                <div class="col-4">
-				<a href="topics/topic.html">
-                    <div class="esemeny">
-                        <h3>Játékok</h3>
-                        <p>Létrehozás Dátuma: 2024-05-20</p>
-                        <p>Leírás: Ebben a Játékok nevezetű topicban bátran beszélgethetsz másokkal bármilyen játékról, élményeket oszthatsz meg vele és miegymás.</p>
-                        <div class="hozzaszolasok">
-                            <h4>Előzmények</h4>
-                            <div class="hozzaszolas">
-                                Az előzmények megtekintéséhez kattints a Topicra!
-                            </div>
-                        </div>
-                    </div>
-					</a>
-                </div>
-                <div class="col-4">
-				<a href="topic.html">
-                    <div class="esemeny">
-                        <h3>Esemény Neve</h3>
-                        <p>Létrehozás Dátuma: 2024-05-20</p>
-                        <p>Leírás: Ez egy példa esemény.</p>
-                        <div class="hozzaszolasok">
-                            <h4>Hozzászólások</h4>
-                            <div class="hozzaszolas">
-                                A hozzászólás megtekintéséhez kattints rá a topicra!
-                            </div>
-                        </div>
-                    </div>
-					</a>
-                </div>
-                <div class="col-4">
-				<a href="topic.html">
-                    <div class="esemeny">
-                        <h3>Esemény Neve</h3>
-                        <p>Létrehozás Dátuma: 2024-05-20</p>
-                        <p>Leírás: Ez egy példa esemény.</p>
-                        <div class="hozzaszolasok">
-                            <h4>Hozzászólások</h4>
-                            <div class="hozzaszolas">
-                                A hozzászólás megtekintéséhez kattints rá a topicra!
-                            </div>
-                        </div>
-                    </div>
-					</a>
-                </div>
-                <!-- Add more col-4 divs for additional events as needed -->
+            <div class="row" id="row">
             </div>
         </section>
 
@@ -160,5 +91,62 @@
     <!-- <footer> -->
         <!-- <p>&copy; 2024 Közösségi Portál</p> -->
     <!-- </footer> -->
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyBS2rFW8Kna-YayFzh54wS6ZInQOozdlgg",
+          authDomain: "evvegiproject.firebaseapp.com",
+          projectId: "evvegiproject",
+          storageBucket: "evvegiproject.appspot.com",
+          messagingSenderId: "582492796065",
+          appId: "1:582492796065:web:e76f649410ef9df0c96ce0"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+        var topicok = document.getElementById("esemenyek");
+        function loadNotes() {
+          //  document.getElementById('notes-list').innerHTML = '<h2>Jegyzetek</h2>';
+            db.collection("topics").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    var note = doc.data();
+                    var noteElement = document.createElement('div');
+                    noteElement.classList.add('esemeny');
+                    noteElement.classList.add('col-4');
+                    noteElement.innerHTML = `
+                        <div class="card-body">
+                            <h3 class="card-title">Topic Neve: ${note.nev}</h3>
+                            <p class="card-text">Leírás a Topicról: ${note.leiras}</p>
+                            <p class="card-text">Korhatár: ${note.korhatar}</p>
+                        </div>`;
+                    document.getElementById('row').appendChild(noteElement);
+                });
+            });
+        }
+        function createForm() {
+            const formSection = document.getElementById('form-section');
+            formSection.classList.remove('hidden');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const topicName = document.getElementById('topic-name').value;
+            const topicAuthor = document.getElementById('topic-author').value;
+            const topicDescription = document.getElementById('topic-description').value;
+            alert('Sikeresen létrehoztál egy Topicot.');
+
+            console.log('New Topic:', {
+                name: topicName,
+                author: topicAuthor,
+                description: topicDescription
+            });
+            document.getElementById('new-topic-form').reset();
+            document.getElementById('form-section').classList.add('hidden');
+        }
+        window.onload = function () {
+            loadNotes();
+        };
+    </script>
 </body>
 </html>
