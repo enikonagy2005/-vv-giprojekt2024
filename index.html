@@ -79,12 +79,13 @@
           signInWithEmailAndPassword(auth, email, password)
             .then(function(userCredential) {
               var user = userCredential.user;
-              console.log("Sikeres bejelentkezés:", user);
+              alert("Sikeres bejelentkezés!");
+              window.location.href="topicok/topicselect.html";
             })
             .catch(function(error) {
               var errorCode = error.code;
               var errorMessage = error.message;
-              console.error("Bejelentkezési hiba:", errorCode, errorMessage);
+              alert("Bejelentkezési hiba:", errorCode, errorMessage);
             });
         }
       </script>

@@ -116,8 +116,10 @@
                     noteElement.innerHTML = `
                         <div class="card-body">
                             <h3 class="card-title">Topic Neve: ${note.nev}</h3>
-                            <p class="card-text">Leírás a Topicról: ${note.leiras}</p>
                             <p class="card-text">Korhatár: ${note.korhatar}</p>
+                            <p class="card-text">Leírás a Topicról: ${note.leiras}</p>
+                            <p>A hozzászólás megtekintéséhez kattints az alábbi gombra</p>
+                            <p><button>Megtekintés</button></p>
                         </div>`;
                     document.getElementById('row').appendChild(noteElement);
                 });
