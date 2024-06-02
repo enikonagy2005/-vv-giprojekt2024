@@ -68,11 +68,11 @@
         <section id="form-section" class="hidden">
             <h2>Új Topic Létrehozása</h2>
             <form id="new-topic-form" onsubmit="handleFormSubmit(event)">
-                <label for="topic-name">Topic Neve:</label>
-                <input type="text" id="topic-name" name="topic-name" required>
-                <label for="topic-author">Szerző:</label>
-                <input type="text" id="topic-author" name="topic-author" required>
-                <label for="topic-description">Leírás:</label>
+                <label for="name">Topic Neve:</label>
+                <input type="text" id="name" name="topic-name" required>
+                <label for="leiras">Leírás:</label>
+                <input type="text" id="leiras" name="topic-author" required>
+                <label for="korhatar">Kórhatár:</label>
                 <textarea id="topic-description" name="topic-description" required></textarea>
                 <button type="submit">Létrehozás</button>
             </form>
@@ -116,10 +116,8 @@
                     noteElement.innerHTML = `
                         <div class="card-body">
                             <h3 class="card-title">Topic Neve: ${note.nev}</h3>
-                            <p class="card-text">Korhatár: ${note.korhatar}</p>
                             <p class="card-text">Leírás a Topicról: ${note.leiras}</p>
-                            <p>A hozzászólás megtekintéséhez kattints az alábbi gombra</p>
-                            <p><button>Megtekintés</button></p>
+                            <p class="card-text">Korhatár: ${note.korhatar}</p>
                         </div>`;
                     document.getElementById('row').appendChild(noteElement);
                 });
@@ -149,6 +147,32 @@
         window.onload = function () {
             loadNotes();
         };
+        document.getElementById('btn').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+
+        
+            var nev = document.getElementById('nev').value;
+            var leiras = document.getElementById('leiras').value;
+            var korhatar = document.getElementById('korhatar').value;
+        
+            db.collection("topics").add({
+                nev:nev,
+                leiras: leiras,
+                korhatar: korhatar
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                document.getElementById('note-title').value = ''; 
+                document.getElementById('note-content').value = '';
+                document.getElementById('note-status').value = 'Fontos'; 
+                loadNotes(); 
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+        });
+
     </script>
 </body>
 </html>
