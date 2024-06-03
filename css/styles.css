@@ -2,11 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgba(35, 55, 27, 0.73);
+    background-color: rgb(7 8 8 / 44%);
 }
 
 header {
-    background-color: rgba(35, 55, 27, 0.73);
+    background-color: rgb(7 8 8 / 44%);
     color: #fff;
     padding: 10px 0;
     text-align: center;
@@ -118,6 +118,15 @@ footer {
     display: flex;
     justify-content: flex-start; /* Aligns the button to the left */
     margin-bottom: 20px;
+}
+b{
+    color: #01478d;
+}
+h3,h2{
+    color: #01478d;
+}
+h1{
+    color: #3e57b9;
 }
 .add-event-button button {
     font-size: 24px;

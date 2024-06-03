@@ -15,8 +15,11 @@
     <main>
         <section id="esemenyek">
             <h2>Jelenlegi Segítségkérések</h2>
+            <div>
+            <b>Elakadtál valamivel? Hozz létre egy új segítségkérést!</b>
+        </div>
             <div class="add-event-button">
-                <button onclick="createForm()">+</button>
+                <button onclick="createForm()">+</button>  
             </div>
             <div class="row" id="row">
             </div>
@@ -24,34 +27,19 @@
 
         <section id="form-section" class="hidden">
             <h2>Új Hibajegy Létrehozása</h2>
-            <form id="new-topic-form" onsubmit="handleFormSubmit(event)">
-                <label for="name">Hiba neve:</label>
-                <input type="text" id="name" name="topic-name" required>
-                <label for="jatek">Játéktípus:</label>
-                <input type="text" id="jatek" name="topic-author" required>
-                <label for="leiras" id="leiras">Hiba leírása:</label>
-                <input type="text" id="leiras" required>
-                <label for="osszeg">Összeg:</label>
-                <input type="number" id="osszeg" name="topic-description" required>
-                <label for="kapcsolat">Kapcsolat:</label>
-                <input type="text" id="kapcsolat" required>
-                <button id="btn" type="submit">Létrehozás</button>
+            <form id="new-topic-form">
+                <label for="name" class="form-label"><b>Hiba Leírása:</b></label>
+                <input type="text" id="name" class="form-control w-25" name="topic-name" required>
+                <label for="jatek" class="form-label"><b>Játéktípus:</b></label>
+                <input type="text" id="jatek" class="form-control w-25" name="topic-author" required>
+                <label for="osszeg" class="form-label"><b>Összeg:</b></label>
+                <input type="text" class="form-control w-25" id="osszeg" name="topic-description" required>
+                <label for="kapcsolat" class="form-label"><b>Kapcsolat:</b></label>
+                <input type="text" id="kapcsolat" class="form-control w-25" required>
+                <button id="btn" type="submit"><b>Létrehozás</b></button>
             </form>
         </section>
-
-        <!-- <section id="uzenetek"> -->
-            <!-- <h2>Privát Üzenetek</h2> -->
-            <!-- <div class="uzenet"> -->
-                <!-- <p><strong>Felhasználó1:</strong> Szia, eljössz az eseményre?</p> -->
-                <!-- <textarea placeholder="Válasz írása..."></textarea> -->
-                <!-- <button type="button">Küldés</button> -->
-            <!-- </div> -->
-        <!-- </section> -->
     </main>
-
-    <!-- <footer> -->
-        <!-- <p>&copy; 2024 Közösségi Portál</p> -->
-    <!-- </footer> -->
     <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore-compat.js"></script>
     <script>
@@ -79,10 +67,9 @@
                     noteElement.innerHTML = `
                         <div class="card-body">
                             <h3 class="card-title">${note.jatek}</h3> 
-                            <p class="card-text">Hiba Neve: ${note.hibanev}</p>
-                            <p class="card-text">Leírás: ${note.leiras}</p>
-                            <p class="card-text">Összeg a megoldásért: ${note.osszeg} Ft</p>
-                            <p class="card-text">Kapcsolatfelvétel: ${note.kapcsolat} </p>
+                            <p class="card-text"><b>Leírás:</b> ${note.hibanev}</p>
+                            <p class="card-text"><b>Összeg a megoldásért:</b> ${note.osszeg} Ft</p>
+                            <p class="card-text"><b>Kapcsolatfelvétel:</b> ${note.kapcsolat} </p>
                             <p style="color:#a53131; font-weight: bold; margin-top:5px;">Gyanús/nem ideillő tartalmat találsz? Jelezd az adminoknak!</p>
                             <p><button style="background-color: red; color: white; font-weight: bold;">Report</button></p>
                         </div>`;
@@ -97,7 +84,6 @@
             e.preventDefault();
             var hibanev = document.getElementById('name').value;
             var jatek = document.getElementById('jatek').value;
-            var leiras = document.getElementById('leiras').value;
             var kapcsolat = document.getElementById('kapcsolat').value;
             var osszeg = document.getElementById('osszeg').value;
         
@@ -105,13 +91,11 @@
                 hibanev:hibanev,
                 jatek: jatek,
                 kapcsolat: kapcsolat,
-                leiras: leiras,
-                osszeg: osszeg
+                osszeg: parseInt(osszeg),
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
                 document.getElementById('name').value = ''; 
-                document.getElementById('leiras').value = '';
                 document.getElementById('jatek').value = '';
                 document.getElementById('osszeg').value = '';
                 document.getElementById('kapcsolat').value = '';
