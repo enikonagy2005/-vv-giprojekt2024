@@ -24,7 +24,21 @@
             <div class="row" id="row">
             </div>
         </section>
-
+        <!--Felugró ablak megjelenítése report gombnál-->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 style="color: red;">Report</h2>
+                <form id="loginForm">
+                    <label for="username" class="form-label">Miért akarja jelenteni?</label>
+                    <textarea id="username" class="form-control" name="username" placeholder="Válaszát fejtse ki..."></textarea>
+                    <div>
+                    <input type="submit" class="btn btn-primary mt-3" id="reportDone" value="Beküldés">
+                </div>
+                </form>
+            </div>
+        </div>
+        <!--Felugró ablak befejezése-->
         <section id="form-section" class="hidden">
             <h2>Új Hibajegy Létrehozása</h2>
             <form id="new-topic-form">
@@ -71,15 +85,26 @@
                             <p class="card-text"><b>Összeg a megoldásért:</b> ${note.osszeg} Ft</p>
                             <p class="card-text"><b>Kapcsolatfelvétel:</b> ${note.kapcsolat} </p>
                             <p style="color:#a53131; font-weight: bold; margin-top:5px;">Gyanús/nem ideillő tartalmat találsz? Jelezd az adminoknak!</p>
-                            <p><button style="background-color: red; color: white; font-weight: bold;">Report</button></p>
+                            <p><button style="background-color: red; color: white; font-weight: bold;" class="reportButton">Report</button></p>
                         </div>`;
                     document.getElementById('row').appendChild(noteElement);
                 });
+                // Eseménykezelők beállítása minden report gombra
+                var reportButtons = document.getElementsByClassName('reportButton');
+                for (var i = 0; i < reportButtons.length; i++) {
+                    reportButtons[i].onclick = function() {
+                        document.getElementById('loginModal').style.display = 'block';
+                    }
+                }
             });
         }
         function createForm() {
             formSection.classList.remove('hidden');
         }
+        document.getElementById("reportDone").addEventListener('click', function(e){
+            e.preventDefault();
+            document.getElementById("loginForm").innerHTML=`<div><b style="color: red;">A jelentést továbbítottuk a vezetőség felé. Köszönjük szépen a jelzését!</b></div>`;
+        })
         document.getElementById('btn').addEventListener('click', function(e) {
             e.preventDefault();
             var hibanev = document.getElementById('name').value;
@@ -108,6 +133,15 @@
             });
         });
 
+        document.getElementsByClassName('close')[0].onclick = function() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('loginModal')) {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
