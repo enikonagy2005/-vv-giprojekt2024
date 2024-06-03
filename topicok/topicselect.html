@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Közösségi Platform</title>
+    <title>Segítségkérő Platform</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
         .row {
@@ -18,7 +18,7 @@
             padding: 15px;
         }
         .esemeny {
-            background-color: lightgray;
+            background-color: #70a5c9;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -53,12 +53,12 @@
 </head>
 <body onload="loadNotes()">
     <header>
-        <h1>Közösségi Platform</h1>
+        <h1>Segítségkérő Platform</h1>
     </header>
 
     <main>
         <section id="esemenyek">
-            <h2>Jelenlegi Topicok</h2>
+            <h2>Jelenlegi Segítségkérések</h2>
             <div class="add-event-button">
                 <button onclick="createForm()">+</button>
             </div>
@@ -67,7 +67,7 @@
         </section>
 
         <section id="form-section" class="hidden">
-            <h2>Új Topic Létrehozása</h2>
+            <h2>Új Hibajegy Létrehozása</h2>
             <form id="new-topic-form" onsubmit="handleFormSubmit(event)">
                 <label for="name">Topic Neve:</label>
                 <input type="text" id="name" name="topic-name" required>
@@ -118,9 +118,12 @@
                     noteElement.style.maxWidth = "33%";
                     noteElement.innerHTML = `
                         <div class="card-body">
-                            <h3 class="card-title">Topic Neve: ${note.nev}</h3>
-                            <p class="card-text">Leírás a Topicról: ${note.leiras}</p>
-                            <p class="card-text">Korhatár: ${note.korhatar}</p>
+                            <h3 class="card-title">Hiba Neve: ${note.nev}</h3>
+                            <p class="card-text">Leírás: ${note.leiras}</p>
+                            <p class="card-text">Összeg a megoldásért: ${note.korhatar} Ft</p>
+                            <p class="card-text">Kapcsolatfelvétel: </p>
+                            <p></p>
+                            <p><button style="background-color: red; color: white; font-weight: bold;">Report</button></p>
                         </div>`;
                     document.getElementById('row').appendChild(noteElement);
                 });
