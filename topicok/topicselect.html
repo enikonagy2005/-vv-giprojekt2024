@@ -69,12 +69,16 @@
         <section id="form-section" class="hidden">
             <h2>Új Hibajegy Létrehozása</h2>
             <form id="new-topic-form" onsubmit="handleFormSubmit(event)">
-                <label for="name">Topic Neve:</label>
+                <label for="name">Hiba neve:</label>
                 <input type="text" id="name" name="topic-name" required>
-                <label for="leiras">Leírás:</label>
-                <input type="text" id="leiras" name="topic-author" required>
-                <label for="korhatar">Kórhatár:</label>
-                <textarea id="korhatar" name="topic-description" required></textarea>
+                <label for="jatek">Játéktípus:</label>
+                <input type="text" id="jatek" name="topic-author" required>
+                <label for="leiras" id="leiras">Hiba leírása:</label>
+                <input type="text" id="leiras" required>
+                <label for="osszeg">Összeg:</label>
+                <input type="number" id="osszeg" name="topic-description" required>
+                <label for="kapcsolat">Kapcsolat:</label>
+                <input type="text" id="kapcsolat" required>
                 <button id="btn" type="submit">Létrehozás</button>
             </form>
         </section>
@@ -118,11 +122,12 @@
                     noteElement.style.maxWidth = "33%";
                     noteElement.innerHTML = `
                         <div class="card-body">
-                            <h3 class="card-title">Hiba Neve: ${note.nev}</h3>
+                            <h3 class="card-title">${note.jatek}</h3> 
+                            <p class="card-text">Hiba Neve: ${note.hibanev}</p>
                             <p class="card-text">Leírás: ${note.leiras}</p>
-                            <p class="card-text">Összeg a megoldásért: ${note.korhatar} Ft</p>
-                            <p class="card-text">Kapcsolatfelvétel: </p>
-                            <p></p>
+                            <p class="card-text">Összeg a megoldásért: ${note.osszeg} Ft</p>
+                            <p class="card-text">Kapcsolatfelvétel: ${note.kapcsolat} </p>
+                            <p style="color:#a53131; font-weight: bold; margin-top:5px;">Gyanús/nem ideillő tartalmat találsz? Jelezd az adminoknak!</p>
                             <p><button style="background-color: red; color: white; font-weight: bold;">Report</button></p>
                         </div>`;
                     document.getElementById('row').appendChild(noteElement);
@@ -134,20 +139,26 @@
         }
         document.getElementById('btn').addEventListener('click', function(e) {
             e.preventDefault();
-            var nev = document.getElementById('name').value;
+            var hibanev = document.getElementById('name').value;
+            var jatek = document.getElementById('jatek').value;
             var leiras = document.getElementById('leiras').value;
-            var korhatar = document.getElementById('korhatar').value;
+            var kapcsolat = document.getElementById('kapcsolat').value;
+            var osszeg = document.getElementById('osszeg').value;
         
             db.collection("topics").add({
-                nev:nev,
+                hibanev:hibanev,
+                jatek: jatek,
+                kapcsolat: kapcsolat,
                 leiras: leiras,
-                korhatar: korhatar
+                osszeg: osszeg
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
                 document.getElementById('name').value = ''; 
                 document.getElementById('leiras').value = '';
-                document.getElementById('korhatar').value = '';
+                document.getElementById('jatek').value = '';
+                document.getElementById('osszeg').value = '';
+                document.getElementById('kapcsolat').value = '';
                 document.getElementById('row').innerHTML = '';
                 formSection.classList.add('hidden');
                 loadNotes();
